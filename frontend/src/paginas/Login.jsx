@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link } from 'react-router-dom'
 
 export const Login = () => {
   return (
@@ -20,6 +21,16 @@ export const Login = () => {
 
 
       </form>
+
+      <nav className='lg:flex lg:justify-between'> 
+        <Link to="/registrar" className='block text-center my-5 text-slate-500 uppercase text-sm'>
+          Registrate
+        </Link>
+
+        <Link to="/olvide-password" className='block text-center my-5 text-slate-500 uppercase text-sm'>
+          Olvide mi password
+        </Link>
+      </nav>
     </>
   )
 }
