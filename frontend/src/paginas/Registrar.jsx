@@ -1,8 +1,18 @@
-import React from 'react'
+import {useState} from 'react'
 import {Link } from 'react-router-dom'
 
 
 function Registrar() {
+  const [ nombre, setNombre] = useState('')
+  const [ apellido, setApellido] = useState('')
+  const [ email, setEmail] = useState('')
+  const [ password, setPassword] = useState('')
+  const [ repetirPassword, setRepetirPassword] = useState('')
+
+
+
+
+
   return (
     <>
       <h1 className='text-sky-600 font-black text-6xl capitalize'>Registrate en el <span className='text-slate-700'>Recetario</span></h1>
@@ -11,7 +21,7 @@ function Registrar() {
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='nombre'>Nombre</label>
-          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50'/>
+          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50' value={nombre} onChange={(e)=> setNombre()}/>
         </div>
 
         <div className='my-5'>
