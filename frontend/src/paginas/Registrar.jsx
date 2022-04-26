@@ -4,11 +4,11 @@ import {Link } from 'react-router-dom'
 import Alerta from '../components/Alerta'
 
 function Registrar() {
-  const [ nombre, setNombre] = useState('')
-  const [ apellido, setApellido] = useState('')
+  const [ first_name, setFirst_Name] = useState('')
+  const [ last_name, setLast_Name] = useState('')
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
-  const [ repetirPassword, setRepetirPassword] = useState('')
+  const [ repetir_password, setRepetir_Password] = useState('')
   const [ alerta, setAlerta] = useState({})
 
 
@@ -17,7 +17,7 @@ function Registrar() {
     e.preventDefault();
 
     //validamos que si alguno de los campos estan vacios
-    if([nombre, apellido, email, password, repetirPassword].includes(''))
+    if([first_name, last_name, email, password, repetir_password].includes(''))
     {
       setAlerta({
         msg: 'todos los campos son obligatorios',
@@ -26,7 +26,7 @@ function Registrar() {
       return
     }
     
-    if(password !== repetirPassword)
+    if(password !== repetir_password)
     { 
       setAlerta({
         msg: 'Las claves ingresadas no coinciden',
@@ -37,13 +37,24 @@ function Registrar() {
 
     setAlerta({})
 
-    const url = "https://holamundo-prueba.herokuapp.com/users"
+    const username = email
+    const urlUsers = "https://holamundo-prueba.herokuapp.com/users"
     // Crear el usuario en la API
     try{
-        const respuesta = await axios.get(url)
-        console.log(respuesta)
+        const {data} = await axios.post(urlUsers,
+        {username, password})
+        
+        console.log(data)
+        setAlerta({
+          msg: 'Usuario creado correctamente',
+          error: false
+        })
     } catch (error){
         console.log(error)
+        setAlerta({
+          msg: 'Error a la hora de crear usuario',
+          error: true
+        })
     }
   }
 
@@ -64,12 +75,12 @@ function Registrar() {
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='nombre'>Nombre</label>
-          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50' value={nombre} onChange={(e)=> setNombre(e.target.value)}/>
+          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50' value={first_name} onChange={(e)=> setFirst_Name(e.target.value)}/>
         </div>
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='apellido'>Apellido</label>
-          <input id='apellido' type="text" placeholder='Ingresa tu apellido' className='w-full mt-3 p-3 border rounded bg-gray-50' value={apellido} onChange={(e)=> setApellido(e.target.value)}/>
+          <input id='apellido' type="text" placeholder='Ingresa tu apellido' className='w-full mt-3 p-3 border rounded bg-gray-50' value={last_name} onChange={(e)=> setLast_Name(e.target.value)}/>
         </div>
 
         <div className='my-5'>
@@ -84,7 +95,7 @@ function Registrar() {
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='password2'>repite tu contraseña</label>
-          <input id='password2' type="password" placeholder='Repetir tu Password' className='w-full mt-3 p-3 border rounded bg-gray-50' value={repetirPassword} onChange={(e)=> setRepetirPassword(e.target.value)}/>       
+          <input id='password2' type="password" placeholder='Repetir tu Password' className='w-full mt-3 p-3 border rounded bg-gray-50' value={repetir_password} onChange={(e)=> setRepetir_Password(e.target.value)}/>       
         </div>
 
         
