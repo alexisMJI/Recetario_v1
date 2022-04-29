@@ -38,10 +38,11 @@ function Registrar() {
     setAlerta({})
 
     const username = email
-    const urlUsers = "https://holamundo-prueba.herokuapp.com/users"
+    const urlU = "https://holamundo-prueba.herokuapp.com"
+
     // Crear el usuario en la API
     try{
-        const {data} = await axios.post(urlUsers,
+        const {data} = await axios.post(urlU.concat("/users"),
         {username, password})
         
         console.log(data)
@@ -49,8 +50,15 @@ function Registrar() {
           msg: 'Usuario creado correctamente',
           error: false
         })
-    } catch (error){
-        console.log(error)
+
+        setFirst_Name('')
+        setLast_Name('')
+        setEmail('')
+        setPassword('')
+        setRepetir_Password('')
+
+    }catch (error){
+        console.log(error.response.data)
         setAlerta({
           msg: 'Error a la hora de crear usuario',
           error: true
