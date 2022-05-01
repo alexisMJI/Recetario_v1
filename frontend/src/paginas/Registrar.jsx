@@ -2,6 +2,7 @@ import axios from 'axios'
 import {useState} from 'react'
 import {Link } from 'react-router-dom'
 import Alerta from '../components/Alerta'
+import clienteAxios from '../config/clienteAxios'
 
 function Registrar() {
   const [ first_name, setFirst_Name] = useState('')
@@ -35,14 +36,24 @@ function Registrar() {
       return
     }
 
+    /** 
+    if(password.length <6)
+    { 
+      setAlerta({
+        msg: 'La password debe tener minimo 6 caracteres',
+        error: true
+      })
+      return
+    }
+    */
     setAlerta({})
 
+    // alexis back le falta configurar el nombre de sus variables...
     const username = email
-    const urlU = "https://holamundo-prueba.herokuapp.com"
 
     // Crear el usuario en la API
     try{
-        const {data} = await axios.post(urlU.concat("/users"),
+        const {data} = await clienteAxios.post(("/users"),
         {username, password})
         
         console.log(data)
