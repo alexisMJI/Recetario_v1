@@ -1,23 +1,55 @@
-import React from 'react'
-import {Link } from 'react-router-dom'
+import {useState} from 'react'
+import {Link, useNavigate } from 'react-router-dom'
+import Alerta from '../components/Alerta'
+import clienteAxios from '../config/clienteAxios'
 
 export const Login = () => {
+
+  const [ email, setEmail] = useState('')
+  const [ password, setPassword] = useState('')
+  const [ alerta, setAlerta] = useState({})
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    if([email, password].includes('')){
+      setAlerta({
+        msg: 'todos los campos son obligatorios',
+        error: true
+      })
+      return
+    }
+    const username= email
+    
+    try {
+      const {data} = await clienteAxios.post('/users/login',{username,password})
+      console.log(data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+
+  }
+
+  //extraemos el msg de alerta
+  const {msg} = alerta
+
   return (
     <>
       <h1 className='text-sky-600 font-black text-6xl capitalize'>Inicia sesión en el <span className='text-slate-700'>Recetario</span></h1>
-      
-      <form className='my-10 bg-white shadow rounded p-10'>
+      {/*si la variable msg tiene algo significa q el objeto no esta vacio entonces utilizamos el componente alerta, pasandole como prop nuestra alerta*/}
+      {msg && <Alerta alerta={alerta}/>}
+      <form className='my-10 bg-white shadow rounded p-10' onSubmit={handleSubmit}>
 
-        <div className='my-5'>
+      <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='email'>Email</label>
-          <input id='email' type="email" placeholder='Ingresa tu Correo' className='w-full mt-3 p-3 border rounded bg-gray-50'/>
+          <input id='email' type="email" placeholder='Ingresa tu Correo' className='w-full mt-3 p-3 border rounded bg-gray-50' value={email} onChange={(e)=> setEmail(e.target.value)}/>
         </div>
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='password'>contraseña</label>
-          <input id='password' type="password" placeholder='Ingresa tu Password' className='w-full mt-3 p-3 border rounded bg-gray-50'/>       
+          <input id='password' type="password" placeholder='Ingresa tu Password' className='w-full mt-3 p-3 border rounded bg-gray-50' value={password} onChange={(e)=> setPassword(e.target.value)}/>       
         </div>
         
-        <input type="submit" value="Iniciar Sesion" className='mb-5 bg-sky-700 w-full py-3 text-white uppercase rounded hover:cursor-pointer hover:bg-sky-800 hover:transition-colors'/>
+        <input type="submit" value="Iniciar Sesion" className='mb-5 bg-sky-700 w-full py-3 text-white uppercase rounded hover:cursor-pointer hover:bg-sky-800 hover:transition-colors' />
 
 
       </form>
