@@ -19,10 +19,10 @@ export const Login = () => {
       })
       return
     }
-    const username= email
+   
     
     try {
-      const {data} = await clienteAxios.post('/users/login',{username,password})
+      const {data} = await clienteAxios.post('/users/login',{email,password})
       console.log(data)
     } catch (error) {
       console.log(error.response.data)
