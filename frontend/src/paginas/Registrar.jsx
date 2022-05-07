@@ -5,8 +5,8 @@ import Alerta from '../components/Alerta'
 import clienteAxios from '../config/clienteAxios'
 
 function Registrar() {
-  const [ name, setFirst_Name] = useState('')
-  const [ lastname, setLast_Name] = useState('')
+  const [ name, setName] = useState('')
+  const [ lastname, setLastname] = useState('')
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
   const [ repetir_password, setRepetir_Password] = useState('')
@@ -60,8 +60,8 @@ function Registrar() {
           error: false
         })
 
-        setFirst_Name('')
-        setLast_Name('')
+        setName('')
+        setLastname('')
         setEmail('')
         setPassword('')
         setRepetir_Password('')
@@ -92,12 +92,12 @@ function Registrar() {
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='nombre'>Nombre</label>
-          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50' value={name} onChange={(e)=> setFirst_Name(e.target.value)}/>
+          <input id='nombre' type="text" placeholder='Ingresa tu nombre' className='w-full mt-3 p-3 border rounded bg-gray-50' value={name} onChange={(e)=> setName(e.target.value)}/>
         </div>
 
         <div className='my-5'>
           <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='apellido'>Apellido</label>
-          <input id='apellido' type="text" placeholder='Ingresa tu apellido' className='w-full mt-3 p-3 border rounded bg-gray-50' value={lastname} onChange={(e)=> setLast_Name(e.target.value)}/>
+          <input id='apellido' type="text" placeholder='Ingresa tu apellido' className='w-full mt-3 p-3 border rounded bg-gray-50' value={lastname} onChange={(e)=> setLastname(e.target.value)}/>
         </div>
 
         <div className='my-5'>
