@@ -22,10 +22,21 @@ export const Login = () => {
    
     
     try {
-      const {data} = await clienteAxios.post('/users/login',{email,password})
-      console.log(data)
+      const {data} = await clienteAxios.post('/login',{email,password})
+      
+      localStorage.setItem('accessToken',data.accessToken)
+      setAlerta({
+        msg: "Acceso correcto",
+        error: false
+      })
+      return
     } catch (error) {
       console.log(error.response.data)
+      setAlerta({
+        msg: "No se pudo iniciar sesion - "+ error.response.data,
+        error: true
+      })
+      return
     }
 
   }
