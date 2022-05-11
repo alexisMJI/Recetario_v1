@@ -3,6 +3,7 @@ import {Link, useNavigate } from 'react-router-dom'
 import Alerta from '../components/Alerta'
 import clienteAxios from '../config/clienteAxios'
 import useAuth from '../hooks/useAuth'
+import axios from 'axios'
 
 
 export const Login = () => {
@@ -13,12 +14,14 @@ export const Login = () => {
 
   const { setAuth } = useAuth();
   
-
+  
+    
 
 
 
   const handleSubmit = async e => {
     e.preventDefault();
+    
 
     if([email, password].includes('')){
       setAlerta({
@@ -27,7 +30,7 @@ export const Login = () => {
       })
       return
     }
-   
+    
     
     try {
       const {data} = await clienteAxios.post('/login',{email,password})

@@ -23,7 +23,9 @@ const AuthProvider = ({children}) => {
             }
 
             try {
-                const {data} = await clienteAxios('/usuarios/perfil', config)
+                //request pasando el token generado
+                const {data} = await clienteAxios.get('/users', config)
+                
                 
             } catch (error) {
                 
