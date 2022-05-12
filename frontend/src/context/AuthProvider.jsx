@@ -24,14 +24,14 @@ const AuthProvider = ({children}) => {
 
             try {
                 //request pasando el token generado
-                const {data} = await clienteAxios.get('/users', config)
-                
+                const {data} = await clienteAxios.get('/users/2', config)
+                console.log(data)
                 
             } catch (error) {
                 
             }
 
-            console.log('si hay token')
+            
         }
         autenticarUsuario()
     },[])
