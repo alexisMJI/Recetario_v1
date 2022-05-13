@@ -34,18 +34,20 @@ export const Login = () => {
     
     try {
       const {data} = await clienteAxios.post('/login',{email,password})
-      
-      localStorage.setItem('accessToken',data.accessToken)
-      setAuth(data)
+      // back alex endpoint /auth/token
+      // back fake /login
       setAlerta({
         msg: "Acceso correcto",
         error: false
       })
+      localStorage.setItem('accessToken',data.accessToken)
+      setAuth(data)
+     
       return
     } catch (error) {
       console.log(error.response.data)
       setAlerta({
-        msg: "No se pudo iniciar sesion - "+ error.response.data,
+        msg: "No se pudo iniciar sesion",
         error: true
       })
       return

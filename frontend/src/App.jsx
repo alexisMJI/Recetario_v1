@@ -11,7 +11,7 @@ import { AuthProvider } from './context/AuthProvider'
 
 function App() {
   
-//ddasd
+
   return (
       
       <BrowserRouter>
@@ -25,8 +25,10 @@ function App() {
               <Route path="/olvide-password" element={<OlvidePassword/>}/>
               <Route path="/olvide-password/:token" element={<NuevoPassword/>}/>
               <Route path="/confirmar/:id" element={<ConfirmarCuenta/>}/>
+            </Route>
 
-
+            <Route path="/recetas" element={ <RutaProtegida/>}>
+              <Route index element={<Recetas/>}/> 
             </Route>
 
               

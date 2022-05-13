@@ -24,8 +24,8 @@ const AuthProvider = ({children}) => {
 
             try {
                 //request pasando el token generado
-                const {data} = await clienteAxios.get('/users/2', config)
-                console.log(data)
+                const {data} = await clienteAxios.get('/users', config)
+                setAuth(data)
                 
             } catch (error) {
                 
@@ -44,7 +44,9 @@ const AuthProvider = ({children}) => {
     return(
         <AuthContext.Provider
             value={{
+                auth,
                 setAuth
+
             }}
         >
              {children}
