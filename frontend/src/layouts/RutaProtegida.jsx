@@ -5,10 +5,16 @@ import useAuth from '../hooks/useAuth'
 
 const RutaProtegida = () => {
 
-    const {auth} = useAuth()
+    //Llamamos a nuestro hook useAuth para utilizar neustro context Auth(state/estado global)
     
+    const {auth} = useAuth()
+    console.log(auth)
   return (
-    <div>RutaProtegida</div>
+    <>
+    {/* si el state auth cuenta con el atributo id mostramos la pagina sino la redirigimos al inicio*/}
+    {auth.id?'Autenticado': <Navigate to="/" />}
+
+    </>
   )
 }
 

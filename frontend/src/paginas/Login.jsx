@@ -8,21 +8,19 @@ import axios from 'axios'
 
 export const Login = () => {
 
+  //creamos nuestros states
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
   const [ alerta, setAlerta] = useState({})
-
   const { setAuth } = useAuth();
   
   
-    
-
-
-
+  //declaramos nuestra funcion que maneja el envio
   const handleSubmit = async e => {
+    //Cancela la acción del evento, asi no nos redirige 
     e.preventDefault();
     
-
+    // si hay campos vacios, error
     if([email, password].includes('')){
       setAlerta({
         msg: 'todos los campos son obligatorios',
@@ -33,9 +31,10 @@ export const Login = () => {
     
     
     try {
-      const {data} = await clienteAxios.post('/login',{email,password})
-      // back alex endpoint /auth/token
-      // back fake /login
+      //definimos una variable que va a tener el valor "data" de la peticion realizada
+      const {data} = await clienteAxios.post('/login',{email,password}) // back alex endpoint /auth/token || back fake /login
+      console.log(data)
+      
       setAlerta({
         msg: "Acceso correcto",
         error: false

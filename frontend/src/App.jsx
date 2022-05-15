@@ -1,4 +1,6 @@
 import {BrowserRouter, Route, Routes } from 'react-router-dom'
+import RutaProtegida from './layouts/RutaProtegida'
+import Recetas from './paginas/Recetas'
 import AuthLayout from './layouts/AuthLayout'
 import Login from './paginas/Login'
 import Registrar from './paginas/Registrar'
@@ -8,12 +10,11 @@ import { ConfirmarCuenta } from './paginas/ConfirmarCuenta'
 import { AuthProvider } from './context/AuthProvider'
 
 
-
 function App() {
   
 
   return (
-      
+      //Utilizamos react-router-dom  para el routing de nuestras url 
       <BrowserRouter>
         
         <AuthProvider>
