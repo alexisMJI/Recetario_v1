@@ -39,9 +39,12 @@ export const Login = () => {
         msg: "Acceso correcto",
         error: false
       })
+      //definimos una variable en el local storage con el valor del token
       localStorage.setItem('accessToken',data.accessToken)
+      
+      //llamamos al hook que llama al componenete Auth - Auth se encarga de guardar la response de login en un state
       setAuth(data)
-     
+      
       return
     } catch (error) {
       console.log(error.response.data)
@@ -60,7 +63,7 @@ export const Login = () => {
   return (
     <>
       <h1 className='text-sky-600 font-black text-6xl capitalize'>Inicia sesión en el <span className='text-slate-700'>Recetario</span></h1>
-      {/*si la variable msg tiene algo significa q el objeto no esta vacio entonces utilizamos el componente alerta, pasandole como prop nuestra alerta*/}
+      {/*si la variable msg tiene valor asignado entonces utilizamos el componente alerta, pasandole como prop nuestra alerta*/}
       {msg && <Alerta alerta={alerta}/>}
       <form className='my-10 bg-white shadow rounded p-10' onSubmit={handleSubmit}>
 
