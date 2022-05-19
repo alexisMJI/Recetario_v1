@@ -1,9 +1,28 @@
 import{useState, useEffect, createContext} from 'react'
 import clienteAxios from '../config/clienteAxios';
+/*
+CONTEXT provee una forma de pasar datos a través del árbol de componentes 
+sin tener que pasar props manualmente en cada nivel.
+
+Context está diseñado para compartir datos que pueden considerarse “globales”
+Usando Context podemos evitar pasar props a través de elementos intermedios
 
 
+Cada objeto Context viene con un componente Provider de React que 
+permite que los componentes que lo consumen se suscriban a los cambios del contexto. 
+Todos los consumidores que son descendientes de un Provider 
+se vuelven a renderizar cada vez que cambia la prop value del Provider
+El componente Provider acepta una prop value que se pasará a los componentes consumidores 
+que son descendientes de este Provider
+*/
+
+
+
+
+//creamos una variable llamada authcontext y le asignamos el valor de createContext: Fn que crea un objeto Context
 const AuthContext = createContext();
 
+//Definimos fn Provider
 const AuthProvider = ({children}) => {
 
     const [auth,setAuth] = useState({})
@@ -40,6 +59,7 @@ const AuthProvider = ({children}) => {
 
 
 
+    
     
     return(
         <AuthContext.Provider
