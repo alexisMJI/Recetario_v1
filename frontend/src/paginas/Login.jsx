@@ -32,7 +32,7 @@ export const Login = () => {
     
     try {
       //definimos una variable que va a tener el valor "data" de la peticion realizada
-      const {data} = await clienteAxios.post('/login',{email,password}) // back alex endpoint /auth/token || back fake /login
+      const {data} = await clienteAxios.post('/auth/token',{email,password}) // back alex endpoint /auth/token || back fake /login
       console.log(data)
       
       setAlerta({

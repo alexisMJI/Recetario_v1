@@ -75,8 +75,10 @@ const AuthProvider = ({children}) => {
     )
 }
 
+//exportamos nuestro provider
 export{
     AuthProvider
 }
 
+//exportamos como default nuestro context
 export default AuthContext;
