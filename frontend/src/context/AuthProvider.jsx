@@ -30,13 +30,15 @@ const AuthProvider = ({children}) => {
 
     //definimos nuestra fn useEffect  callback, que se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {
-        //definimos una var
+        //definimos una fn en donde podemos tomar el valor del token del localstorage y utilizarlo en otras request a la api
         const autenticarUsuario = async () => {
+            //defnimos una var con el valor del token en caso de existir
             const token = localStorage.getItem('accessToken')
+            // en caso de no existir return
             if(!token){
                 return
             }
-
+            // definimos una var en donde tenemos como parametro el token
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +61,7 @@ const AuthProvider = ({children}) => {
     },[])
     
     
-    
+    //declaramos que datos queremos pasar con context en este caso auth y setAuth
     return(
         <AuthContext.Provider
             value={{
