@@ -22,12 +22,15 @@ que son descendientes de este Provider
 //creamos una variable llamada authcontext y le asignamos el valor de createContext: Fn que crea un objeto Context
 const AuthContext = createContext();
 
-//Definimos fn Provider
+//Definimos fn Provider, por lo que entiendo va a proveer los datos a los componentes hijos
 const AuthProvider = ({children}) => {
 
+    //definimos e inicializamos a nuestra variable state llamada  auth
     const [auth,setAuth] = useState({})
 
+    //definimos nuestra fn useEffect  callback, que se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {
+        //definimos una var
         const autenticarUsuario = async () => {
             const token = localStorage.getItem('accessToken')
             if(!token){
@@ -55,10 +58,6 @@ const AuthProvider = ({children}) => {
         autenticarUsuario()
     },[])
     
-
-
-
-
     
     
     return(

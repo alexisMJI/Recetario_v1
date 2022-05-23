@@ -14,7 +14,8 @@ function App() {
   
 
   return (
-      //Utilizamos react-router-dom  para el routing de nuestras url 
+      //Utilizamos react-router-dom  para el routing de nuestras url
+      //AuthProvider es neustro context que nos va a permitiur pasar los datos de este compoenente a los demas componentes hijos 
       <BrowserRouter>
         
         <AuthProvider>
