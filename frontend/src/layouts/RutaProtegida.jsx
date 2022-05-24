@@ -5,14 +5,22 @@ import useAuth from '../hooks/useAuth'
 
 const RutaProtegida = () => {
 
-    //Llamamos a nuestro hook useAuth para utilizar neustro context Auth(state/estado global)
+    //Llamamos a nuestro hook useAuth para utilizar nuestro context Auth(state/estado global)
     
-    const {auth} = useAuth()
+    const {auth, cargando} = useAuth()
+    
+    console.log("desde ruta protegida")
     console.log(auth)
-  return (
+
+    //si la flag es true 
+    if(cargando) return "cargando..."
+    
+    //si no
+    return (
     <>
     {/* si el state auth cuenta con el atributo id mostramos la pagina sino la redirigimos al inicio*/}
-    {auth.id?'Autenticado': <Navigate to="/" />}
+    { auth.id ? 'Autenticado': <Navigate to="/" />}
+    
 
     </>
   )

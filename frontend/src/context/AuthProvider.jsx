@@ -27,6 +27,8 @@ const AuthProvider = ({children}) => {
 
     //definimos e inicializamos a nuestra variable state llamada  auth
     const [auth,setAuth] = useState({})
+    //definimos una var state que nos va a a servir de flag para saber si nuestra fn de autenticarusuario se ejecuto correctamente
+    const [cargando, setCargando] = useState(true)
 
     //definimos nuestra fn useEffect  callback, que se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {
@@ -48,13 +50,16 @@ const AuthProvider = ({children}) => {
 
             try {
                 //request pasando el token generado
-                const {data} = await clienteAxios.get('/users/2', config)
-                setAuth(data)
+                //const {data} = await clienteAxios.get('/user', config)
+                
+
+                setAuth(JSON.parse(sessionStorage.getItem("usuario")))
+                console.log("desdeauthprovider")
                 
             } catch (error) {
                 
             }
-
+            setCargando(false)
             
         }
         autenticarUsuario()
@@ -66,7 +71,8 @@ const AuthProvider = ({children}) => {
         <AuthContext.Provider
             value={{
                 auth,
-                setAuth
+                setAuth,
+                cargando
 
             }}
         >

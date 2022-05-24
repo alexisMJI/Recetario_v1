@@ -12,8 +12,9 @@ export const Login = () => {
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
   const [ alerta, setAlerta] = useState({})
-  const { setAuth } = useAuth();
+  const { setAuth, cargando } = useAuth();
   
+  console.log(cargando)
   
   //declaramos nuestra funcion que maneja el envio
   const handleSubmit = async e => {
@@ -32,7 +33,7 @@ export const Login = () => {
     
     try {
       //definimos una variable que va a tener el valor "data" de la peticion realizada
-      const {data} = await clienteAxios.post('/auth/token',{email,password}) // back alex endpoint /auth/token || back fake /login
+      const {data} = await clienteAxios.post('/login',{email,password}) // back alex endpoint /auth/token || back fake /login
       console.log(data)
       
       setAlerta({
@@ -40,10 +41,10 @@ export const Login = () => {
         error: false
       })
       //definimos una variable en el local storage con el valor del token
-      localStorage.setItem('accessToken',data.accessToken)
-      
+      localStorage.setItem('accessToken',data.accessToken)//accessToken Fakeback| access_token alex
+      sessionStorage.setItem('usuario', JSON.stringify(data.user))
       //llamamos al hook que llama al componenete Auth - Auth se encarga de guardar la response de login en un state
-      setAuth(data)
+      setAuth(data.user)
       
       return
     } catch (error) {
