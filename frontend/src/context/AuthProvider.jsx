@@ -14,15 +14,15 @@ const AuthContext = createContext();
 const AuthProvider = ({children}) => {
     //Hook FROM 'react-router-dom' Redirect user to a specific Url
     const navigate =useNavigate();
+    //state para almacenar el user
     const [auth,setAuth] = useState({})
-    //flag para saber si nuestra fn autenticarusuario se ejecuto correctamente
+    //flag utilizada para el Componente RutaProtegida
     const [cargando, setCargando] = useState(true)
 
     //fn useEffect se ejecuta cuando un state cambia o cuando el componente esta listo.
-    useEffect(()=> {
-        
+    useEffect(()=> {    
         const verificarUsuario = async () => {
-            
+         
             const usuario = JSON.parse(sessionStorage.getItem("usuario"))   
            
             if(!usuario){
@@ -39,7 +39,6 @@ const AuthProvider = ({children}) => {
         }
         verificarUsuario()
     },[])
-    
     
     //declaramos que datos queremos pasar con context en este caso auth y setAuth
     return(

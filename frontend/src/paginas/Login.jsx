@@ -3,7 +3,7 @@ import {Link, useNavigate } from 'react-router-dom'
 import Alerta from '../components/Alerta'
 import clienteAxios from '../config/clienteAxios'
 import useAuth from '../hooks/useAuth'
-import axios from 'axios'
+
 
 
 export const Login = () => {
@@ -12,9 +12,9 @@ export const Login = () => {
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
   const [ alerta, setAlerta] = useState({})
-  const { setAuth, cargando } = useAuth();
+  const { setAuth } = useAuth();
   
-  console.log(cargando)
+ 
   
   //declaramos nuestra funcion que maneja el envio
   const handleSubmit = async e => {
