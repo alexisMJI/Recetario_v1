@@ -32,14 +32,19 @@ const AuthProvider = ({children}) => {
 
     //definimos nuestra fn useEffect  callback, que se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {
-        //definimos una fn en donde podemos tomar el valor del token del localstorage y utilizarlo en otras request a la api
+        console.log("arranco el useeffect del componente authprovider")
+        //definimos una fn en donde podemos tomar el valor del token del localstorage y utilizarlo en otras request a la api & cargamos el usuario en Auth
         const autenticarUsuario = async () => {
-            //defnimos una var con el valor del token en caso de existir
+            //defnimos var con el valor del token y user en caso de existir en el storage
             const token = localStorage.getItem('accessToken')
-            // en caso de no existir return
+            const usuario = sessionStorage.getItem('usuario')
+            
+            // en caso de no existir hacemos un return y seteamos a cargando como false
             if(!token){
+                setCargando(false)
                 return
             }
+            
             // definimos una var en donde tenemos como parametro el token
             const config = {
                 headers: {
@@ -49,15 +54,20 @@ const AuthProvider = ({children}) => {
             }
 
             try {
-                //request pasando el token generado
-                //const {data} = await clienteAxios.get('/user', config)
-                
+                /*request pasando el token generado y obtener los datos del usuario | LO USAN EN LOS VIDEOS | entiendo que se usa para validar que el token siga siendo valido
+                 const {data} = await clienteAxios.get('/user', config)*/
 
+                //en caso de no existir hacemos un return y seteamos a Cargando como false
+                if(!usuario){
+                    setCargando(false)
+                    return
+                }
                 setAuth(JSON.parse(sessionStorage.getItem("usuario")))
-                console.log("desdeauthprovider")
+                
                 
             } catch (error) {
-                
+                //en caso de que el token ya no sea valido asignamos el state auth como vacio
+                setAuth({})
             }
             setCargando(false)
             

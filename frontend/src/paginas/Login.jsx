@@ -43,7 +43,7 @@ export const Login = () => {
       //definimos una variable en el local storage con el valor del token
       localStorage.setItem('accessToken',data.accessToken)//accessToken Fakeback| access_token alex
       sessionStorage.setItem('usuario', JSON.stringify(data.user))
-      //llamamos al hook que llama al componenete Auth - Auth se encarga de guardar la response de login en un state
+      //seteamos Auth con los valores del usuario
       setAuth(data.user)
       
       return
