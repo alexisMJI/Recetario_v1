@@ -5,7 +5,6 @@ import clienteAxios from '../config/clienteAxios'
 import useAuth from '../hooks/useAuth'
 
 
-
 export const Login = () => {
 
   //creamos nuestros states
@@ -15,7 +14,6 @@ export const Login = () => {
   const { setAuth } = useAuth();
   
  
-  
   //declaramos nuestra funcion que maneja el envio
   const handleSubmit = async e => {
     //Cancela la acción del evento, asi no nos redirige 
@@ -40,11 +38,11 @@ export const Login = () => {
         msg: "Acceso correcto",
         error: false
       })
-      //definimos una variable en el local storage con el valor del token
+      //definimos var en el storage para almacenar el token y otro para user
       localStorage.setItem('accessToken',data.accessToken)//accessToken Fakeback| access_token alex
       sessionStorage.setItem('usuario', JSON.stringify(data.user))
       //seteamos Auth con los valores del usuario
-      setAuth(data.user)
+      setAuth(JSON.parse(sessionStorage.getItem('usuario')))
       
       return
     } catch (error) {
