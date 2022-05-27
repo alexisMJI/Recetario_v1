@@ -6,7 +6,7 @@ import Login from './paginas/Login'
 import Registrar from './paginas/Registrar'
 import OlvidePassword from './paginas/OlvidePassword'
 import NuevoPassword from './paginas/NuevoPassword'
-import ConfirmarCuenta from './paginas/ConfirmarCuenta'
+import {ConfirmarCuenta} from './paginas/ConfirmarCuenta'
 import NuevaReceta from './paginas/NuevaReceta'
 
 import {AuthProvider} from './context/AuthProvider'
