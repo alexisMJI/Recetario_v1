@@ -20,10 +20,10 @@ const RutaProtegida = () => {
     <>
     {/* si el state auth cuenta con el atributo id mostramos la pagina a la que quiera acceder sino la redirigimos al inicio / */}
     { auth.id ? (
-      <div>
+      <div className='bg-gray-100'>
         <Header/>
-
-        <div>
+        
+        <div className='md:flex md:min-h-screen'>
           <Sidebar/>
 
           <main>
