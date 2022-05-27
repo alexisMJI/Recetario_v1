@@ -4,7 +4,13 @@ import React from 'react'
 const Recetas = () => {
 
   return (
-    <div>Recetas</div>
+    <>
+      <h1 className=' text-4xl font-black '>Recetas</h1>
+
+      <div>
+        
+      </div>
+    </>
   )
 }
 

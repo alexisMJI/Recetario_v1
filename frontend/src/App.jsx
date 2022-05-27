@@ -6,8 +6,10 @@ import Login from './paginas/Login'
 import Registrar from './paginas/Registrar'
 import OlvidePassword from './paginas/OlvidePassword'
 import NuevoPassword from './paginas/NuevoPassword'
-import { ConfirmarCuenta } from './paginas/ConfirmarCuenta'
-import { AuthProvider } from './context/AuthProvider'
+import ConfirmarCuenta from './paginas/ConfirmarCuenta'
+import NuevaReceta from './paginas/NuevaReceta'
+
+import {AuthProvider} from './context/AuthProvider'
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
 
             <Route path="/recetas" element={ <RutaProtegida/>}>
               <Route index element={<Recetas/>}/> 
+              <Route path="crear-receta" element={<NuevaReceta/>}/>
             </Route>
 
               
