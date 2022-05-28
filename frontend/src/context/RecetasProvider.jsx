@@ -6,9 +6,9 @@ const RecetasContext = createContext();
 
 const RecetasProvider = ({children}) => {
 
-    const [recetas, setRecetas]= useState({})
+    const [recetas, setRecetas]= useState([])
 
-
+    
     return(
         <RecetasContext.Provider value={{recetas}}>
             {children}

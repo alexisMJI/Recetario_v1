@@ -1,14 +1,14 @@
 import React from 'react'
-
+import FormularioReceta from '../components/FormularioReceta'
 
 const NuevaReceta = () => {
 
   return (
     <>
-      <h1 className=' text-4xl font-black '>NuevaRecetas</h1>
+      <h1 className=' text-4xl font-black '>Crear Receta</h1>
 
-      <div>
-        
+      <div className="mt-10 flex justify-center">
+        <FormularioReceta/>
       </div>
     </>
   )
