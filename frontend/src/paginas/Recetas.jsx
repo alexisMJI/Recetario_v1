@@ -1,5 +1,7 @@
 import React from 'react'
+import useRecetas from '../hooks/useRecetas'
 
+const {recetas} = useRecetas();
 
 const Recetas = () => {
 

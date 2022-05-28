@@ -10,7 +10,6 @@ permite que los componentes que lo consumen se suscriban a los cambios del conte
 */
 const AuthContext = createContext();
 
-
 const AuthProvider = ({children}) => {
     //Hook FROM 'react-router-dom' Redirect user to a specific Url
     const navigate =useNavigate();

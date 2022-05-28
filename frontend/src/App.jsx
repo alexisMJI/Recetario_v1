@@ -9,6 +9,7 @@ import NuevoPassword from './paginas/NuevoPassword'
 import {ConfirmarCuenta} from './paginas/ConfirmarCuenta'
 import NuevaReceta from './paginas/NuevaReceta'
 
+import { RecetasProvider } from './context/RecetasProvider'
 import {AuthProvider} from './context/AuthProvider'
 
 
@@ -21,25 +22,25 @@ function App() {
       <BrowserRouter>
         
         <AuthProvider>
-          <Routes>
+          <RecetasProvider>
+            <Routes>
 
-            <Route path="/" element={<AuthLayout/>}>
-              <Route index element={<Login/>}/>
-              <Route path="/registrar" element={<Registrar/>}/>
-              <Route path="/olvide-password" element={<OlvidePassword/>}/>
-              <Route path="/olvide-password/:token" element={<NuevoPassword/>}/>
-              <Route path="/confirmar/:id" element={<ConfirmarCuenta/>}/>
-            </Route>
+              <Route path="/" element={<AuthLayout/>}>
+                <Route index element={<Login/>}/>
+                <Route path="/registrar" element={<Registrar/>}/>
+                <Route path="/olvide-password" element={<OlvidePassword/>}/>
+                <Route path="/olvide-password/:token" element={<NuevoPassword/>}/>
+                <Route path="/confirmar/:id" element={<ConfirmarCuenta/>}/>
+              </Route>
 
-            <Route path="/recetas" element={ <RutaProtegida/>}>
-              <Route index element={<Recetas/>}/> 
-              <Route path="crear-receta" element={<NuevaReceta/>}/>
-            </Route>
+              <Route path="/recetas" element={ <RutaProtegida/>}>
+                <Route index element={<Recetas/>}/> 
+                <Route path="crear-receta" element={<NuevaReceta/>}/>
+              </Route>
 
-              
-                
-            
-          </Routes>
+                 
+            </Routes>
+          </RecetasProvider>
         </AuthProvider>
         
       </BrowserRouter>
