@@ -8,7 +8,7 @@ const Header = () => {
         <h2 className='text-4xl text-sky-600 font-black text-center'>
           Uptask
         </h2>
-        <input type="search" placeholder='Buscar Proyecto' className='rounded-lg lg:w96 block p-2 border' />
+        <input type="search" placeholder='Buscar Recetas' className='rounded-lg lg:w96 block p-2 border' />
           
         <div className='flex items-center gap-4'>
           <Link to="/recetas" className='font-bold uppercase'>Recetas</Link>

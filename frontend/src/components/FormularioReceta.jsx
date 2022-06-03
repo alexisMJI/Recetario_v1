@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import {decode as base64_decode, encode as base64_encode} from 'base-64';
 import clienteAxiosRecipes from '../config/clienteAxiosRecipes';
-
+import {getImagenesAPI} from '../config/clienteAxiosPexelsAPI';
 
 const FormularioReceta = () => {
   
@@ -12,33 +12,18 @@ const FormularioReceta = () => {
 
   const [imagenn,setImagenn] = useState(null)
 
-  const subirArchivos= (e)=>{
-    setImagenn(e);
-  }
 
-  const insertarArchivo= async()=>{
-    const f = new FormData();
-    let image = fncovertir(f);
-    console.log(typeof(image))
-    const {data} = await clienteAxiosRecipes.post('/recipes',{image})
-    console.log(data)
 
-  }
+ 
 
-  const fncovertir= (archivo)=>{
-    console.log(typeof(archivo))
-    let encoded = base64_encode(archivo);
-    console.log(encoded)
-    console.log(typeof(encoded))
-
-    return(encoded)
-  }
+ 
 
   const handleSubmit = async e => {
 
     e.preventDefault();
-
-    insertarArchivo();
+    const res =await getImagenesAPI();
+    console.log(res)
+    
   }
  
   return (
@@ -54,9 +39,11 @@ const FormularioReceta = () => {
         <input id='preparation' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Preparacion de la Receta' value={preparation} onChange={(e)=> setPreparation(e.target.value)}/>
         
         <label className='text-gray-700 uppercase font-bold text-sm' htmlFor='img'>Imagen</label>
-        <input id='img' type='file' multiple className='border w-full p-2 mt-2' onChange={(e)=>subirArchivos(e.target.files)}/>
+        <div className='border-2 w-full h-full p-10 mt-2'>
+          <p>Image List</p>
+        </div>
 
-        <button className='text-gray-700 uppercase font-bold' >Crear</button>
+        <button className='text-gray-700 uppercase font-bold mt-10' >Crear</button>
 
       </div>
     </form>
