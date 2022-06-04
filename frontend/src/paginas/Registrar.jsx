@@ -49,7 +49,7 @@ function Registrar() {
 
     
 
-    // Crear el usuario en la API
+    // Peticion Crear el usuario en la API
     try{
         const {data} = await clienteAxios.post(("/users"),
         {name,lastname,email, password})
