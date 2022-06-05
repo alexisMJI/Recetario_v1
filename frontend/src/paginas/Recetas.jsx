@@ -11,9 +11,10 @@ const Recetas = () => {
     <>
       <h1 className=' text-4xl font-black '>Recetas</h1>
       
-      
-        <img src="https://www.meme-arsenal.com/memes/6200d14d795eab11d26a3afabed68439.jpg" />
-      
+      {/*Visaulizar una imagen desde Base64 */}
+      <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+      AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+        9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="punto rojo" />
       <div>
         
       </div>
@@ -21,4 +22,4 @@ const Recetas = () => {
   )
 }
 
-export default Recetas
+export default Recetas 
