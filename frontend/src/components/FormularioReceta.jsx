@@ -7,16 +7,17 @@ import {getImagenesAPI} from '../config/clienteAxiosPexelsAPI';
 import useRecetas from '../hooks/useRecetas';
 
 const FormularioReceta = () => {
-  
+  //definimos states
   const [title,setTitle] = useState('')
   const [ingredients,setIngredients] = useState('')
   const [preparation,setPreparation] = useState('')
   const [image,setImage] = useState('')
- 
-  const {mostrarAlerta, alerta} = useRecetas();
+  
+  //extraemos datos/fn del context
+  const {mostrarAlerta, alerta, submitReceta} = useRecetas();
 
 
-
+  //fn para convertir los archivos a BASE64
   const covertFileBase64 = (archivos)=>{
     Array.from(archivos).forEach(archivo=>{
       var reader= new FileReader();
@@ -32,7 +33,7 @@ const FormularioReceta = () => {
 
   const handleSubmit = async e =>{
     e.preventDefault();
-
+    
     //validamos que si alguno de los campos estan vacios
     if([title,ingredients,preparation].includes(''))
     {
@@ -43,32 +44,13 @@ const FormularioReceta = () => {
       return
     }
 
-    mostrarAlerta({})
+    //pasar los datos hacia el provider
+    await submitReceta({title,ingredients,preparation,image});
+    setTitle('')
+    setIngredients('')
+    setPreparation('')
+    setImage('')
 
-    // Peticion Crear receta en la API
-    try{
-        const {data} = await clienteAxiosRecipes.post(("/recipes"),
-        {title,ingredients,preparation,image})
-        
-        console.log(data)
-        mostrarAlerta({
-          msg: 'Receta creada correctamente',
-          error: false
-        })
-
-        setTitle('')
-        setIngredients('')
-        setPreparation('')
-        setImage('')
-        
-
-    }catch (error){
-        console.log(error.response.data)
-        mostrarAlerta({
-          msg: 'Error a la hora de crear receta',
-          error: true
-        })
-    }
 }
 
   //voy a extraer el msj de la alerta y en el caso de que exista significa que ya tiene algo, ya no esta vacio ese objeto
