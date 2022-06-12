@@ -21,10 +21,13 @@ const AuthProvider = ({children}) => {
     //fn useEffect se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {    
         const verificarUsuario = async () => {
+            
             const token = localStorage.getItem('token')
-            if(!token) 
-                return
 
+            if(!token) {
+                setCargando(false)
+                return
+            }
 
             const config = {
                 headers: {
@@ -33,15 +36,23 @@ const AuthProvider = ({children}) => {
                 }
             }
 
+
             try {
-                
-                //seteamos Auth con los valores del usuario
-                
-               const {data} = await clienteAxiosUsers()
+                const {data} = await clienteAxiosUsers('/users/me',config)
+                //seteamos Auth con los valores del usuario si el back valida el token
+                setAuth(data)
+                console.log(data)
+                navigate('/recetas')
+
+               
             } catch (error) {
-                
+                //limpiamos Auth por si quedaron datos de un usuario que se le vencio el token
+                console.log(error)
+                setAuth({})
             }
-          
+
+            setCargando(false)
+
         }
         verificarUsuario()
     },[])

@@ -13,12 +13,13 @@ const RutaProtegida = () => {
     console.log(auth)
 
     //si la flag es true 
-    if(cargando) return "cargando..."
+    if(cargando) 
+      return "cargando..."
     
-    //si no
+    
     return (
     <>
-    {/* si el state auth cuenta con el atributo id mostramos la pagina a la que quiera acceder sino la redirigimos al inicio / */}
+    {/* si el state auth cuenta con el atributo id(usuario con token valido) mostramos la pagina a la que quiera acceder sino la redirigimos al inicio / */}
     { auth.id ? (
       <div className='bg-gray-100'>
         <Header/>

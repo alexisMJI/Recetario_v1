@@ -19,7 +19,7 @@ export const Login = () => {
     //Cancela la acción del evento, asi no nos redirige 
     e.preventDefault();
     
-    // si hay campos vacios, error
+    // Comprobamos que no haya campos vacios
     if([email, password].includes('')){
       setAlerta({
         msg: 'todos los campos son obligatorios',
@@ -30,27 +30,26 @@ export const Login = () => {
     
     
     try {
-      //definimos una variable que va a tener el valor "data" de la peticion realizada
-      const {data} = await clienteAxiosUsers.post('/auth/token',{email,password}) // back alex endpoint /auth/token || back fake /login
+      //definimos una variable que va a tener el valor "data" de la peticion realizada si el logueo es correcto
+      const {data} = await clienteAxiosUsers.post('/auth/token',{email,password}) 
       console.log(data)
-      
       setAlerta({
         msg: "Acceso correcto",
         error: false
       })
       
-      //definimos var en el storage para almacenar el token y otro para user
+      //definimos un item en el storage para almacenar el token
       localStorage.setItem("token",data.access_token);
       
-      
       return
+
     } catch (error) {
       console.log(error)
       setAlerta({
         msg: "No se pudo iniciar sesion",
         error: true
       })
-      setAuth({})
+      
 
       return
     }
