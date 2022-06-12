@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Link, useNavigate } from 'react-router-dom'
 import Alerta from '../components/Alerta'
-import clienteAxios from '../config/clienteAxios'
+import clienteAxiosUsers from '../config/clienteAxiosUsers'
 import useAuth from '../hooks/useAuth'
 
 
@@ -31,26 +31,27 @@ export const Login = () => {
     
     try {
       //definimos una variable que va a tener el valor "data" de la peticion realizada
-      const {data} = await clienteAxios.post('/login',{email,password}) // back alex endpoint /auth/token || back fake /login
+      const {data} = await clienteAxiosUsers.post('/auth/token',{email,password}) // back alex endpoint /auth/token || back fake /login
       console.log(data)
       
       setAlerta({
         msg: "Acceso correcto",
         error: false
       })
+      
       //definimos var en el storage para almacenar el token y otro para user
-      localStorage.setItem('accessToken',data.accessToken)//accessToken Fakeback| access_token alex
-      sessionStorage.setItem('usuario', JSON.stringify(data.user))
-      //seteamos Auth con los valores del usuario
-      setAuth(JSON.parse(sessionStorage.getItem('usuario')))
+      localStorage.setItem("token",data.access_token);
+      
       
       return
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error)
       setAlerta({
         msg: "No se pudo iniciar sesion",
         error: true
       })
+      setAuth({})
+
       return
     }
 

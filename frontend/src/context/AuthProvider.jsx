@@ -1,5 +1,5 @@
 import{useState, useEffect, createContext} from 'react'
-import clienteAxios from '../config/clienteAxios';
+import clienteAxiosUsers from '../config/clienteAxiosUsers';
 import { useNavigate } from 'react-router-dom';
 /*
 CONTEXT está diseñado para compartir datos que pueden considerarse “globales”
@@ -21,20 +21,27 @@ const AuthProvider = ({children}) => {
     //fn useEffect se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {    
         const verificarUsuario = async () => {
-         
-            const usuario = JSON.parse(sessionStorage.getItem("usuario"))   
-           
-            if(!usuario){
-                setCargando(false) 
-                return   
-            } else{
-                //seteamos a Auth con los valores de usuario
-                setAuth(usuario)
-                //si ya inicio sesion correctamente y quiere acceder a la pantalla de login lo redireccionamos
-                navigate('/recetas')
-                setCargando(false)   
+            const token = localStorage.getItem('token')
+            if(!token) 
+                return
+
+
+            const config = {
+                headers: {
+                "Conten-Type": "application/json",
+                Authorization : `Bearer ${token}`
+                }
             }
 
+            try {
+                
+                //seteamos Auth con los valores del usuario
+                
+               const {data} = await clienteAxiosUsers()
+            } catch (error) {
+                
+            }
+          
         }
         verificarUsuario()
     },[])
