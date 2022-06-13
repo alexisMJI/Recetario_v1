@@ -42,6 +42,7 @@ const AuthProvider = ({children}) => {
                 //seteamos Auth con los valores del usuario si el back valida el token
                 setAuth(data)
                 console.log(data)
+                //redirigimos a la pagina recetas porq el token es valido
                 navigate('/recetas')
 
                

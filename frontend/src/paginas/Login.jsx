@@ -12,6 +12,8 @@ export const Login = () => {
   const [ password, setPassword] = useState('')
   const [ alerta, setAlerta] = useState({})
   const { setAuth } = useAuth();
+  //Hook FROM 'react-router-dom' Redirect user to a specific Url
+  const navigate =useNavigate();
   
  
   //declaramos nuestra funcion que maneja el envio
@@ -37,9 +39,12 @@ export const Login = () => {
         msg: "Acceso correcto",
         error: false
       })
-      
       //definimos un item en el storage para almacenar el token
       localStorage.setItem("token",data.access_token);
+      //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
+      window.location.reload();
+      
+      
       
       return
 

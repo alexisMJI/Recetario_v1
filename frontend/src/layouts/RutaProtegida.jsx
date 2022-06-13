@@ -6,12 +6,12 @@ import Sidebar from '../components/Sidebar'
 
 const RutaProtegida = () => {
 
-    //Llamamos a nuestro hook useAuth para utilizar nuestro context Auth(state global)
+    //Llamamos a nuestro hook useAuth para extraer los datos de nuestro context Auth(state global)
     const {auth, cargando} = useAuth()
     
     console.log("desde ruta protegida")
     console.log(auth)
-
+    console.log(cargando)
     //si la flag es true 
     if(cargando) 
       return "cargando..."
