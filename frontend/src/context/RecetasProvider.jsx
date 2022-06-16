@@ -13,7 +13,8 @@ const RecetasProvider = ({children}) => {
     const navigate = useNavigate();
 
     //Soliticamos las Recipes al Backend
-    useEffect(()=>{
+   /* 
+   useEffect(()=>{
         const obtenerRecipes = async ()=>{
             try {
                 
@@ -22,6 +23,7 @@ const RecetasProvider = ({children}) => {
             }
         }
     },[])
+    */
 
     //fn setea alerta con timer
     const mostrarAlerta = alerta => {
@@ -37,10 +39,24 @@ const RecetasProvider = ({children}) => {
 
         //extraemos los datos que nos pasaron
         const {title,ingredients,preparation,image} = receta
+        console.log(title)
+
+        const token = localStorage.getItem('token');
+            if(token == null) {
+               mostrarAlerta({
+                msg: 'Error a la hora de crear receta',
+                error: true
+                });
+                //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
+                window.location.reload();
+                
+            }
 
         // Peticion Crear receta en la API
         try{
-            const token = localStorage.getItem('accessToken');
+            
+            console.log(token)
+            //(verificar que realiza?)
             if(!token) return
 
             const config = {
