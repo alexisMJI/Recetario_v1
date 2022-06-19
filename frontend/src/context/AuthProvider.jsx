@@ -18,7 +18,6 @@ const AuthProvider = ({children}) => {
     //flag utilizada para el Componente RutaProtegida
     const [cargando, setCargando] = useState(true)
 
-    let idU = '3333333';
 
     //fn useEffect se ejecuta cuando un state cambia o cuando el componente esta listo.
     useEffect(()=> {    
@@ -43,9 +42,7 @@ const AuthProvider = ({children}) => {
                 const {data} = await clienteAxiosUsers('/me',config)
                 //seteamos Auth con los valores del usuario si el back valida el token
                 setAuth(data)
-                
-                idU= data.id;
-                console.log("se valido el token y obtuvimos user",data,idU)
+                console.log("se valido el token y obtuvimos user",data)
                 //redirigimos a la pagina recetas porq el token es valido
                 navigate('/recetas')
 
@@ -66,7 +63,7 @@ const AuthProvider = ({children}) => {
     
     //declaramos que datos queremos pasar con context en este caso auth y setAuth
     return(
-        <AuthContext.Provider value={{auth,setAuth,cargando,idU}}>
+        <AuthContext.Provider value={{auth,setAuth,cargando}}>
              {children}
         </AuthContext.Provider>
     )

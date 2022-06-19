@@ -20,28 +20,22 @@ const RecetasProvider = ({children}) => {
     useEffect(()=>{
         const obtenerRecipes = async ()=>{
             console.log("empuieza useeffectRECETASPROVIDER")
-           
             try {
                 const token = localStorage.getItem('token');
-                if(token == null || !token){
-                    //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
-                    
-                     return
+                if(token == null || !token)
+                    return
 
-
-                }
-                
+                //si auth.id existe 
                 if(auth.id){
-                let userId = auth.id;
-                console.log("desde userid",userId)
-                const {data} = await clienteAxiosRecipes(("/recipes?user_id="+userId));
-                console.log("esto es de  obtener recipes")
-                console.log(data)
-                setRecetas(data)
+                    const userId = auth.id;
+                    console.log("DESDE userid",userId)
+                    const {data} = await clienteAxiosRecipes(("/recipes?user_id="+userId));
+                    console.log("Obtener recipes", data)
+                    setRecetas(data)
+                    return
+                }
+
                 return
-            }
-                return
-            
 
             } catch (error) {
                 console.log(error)
@@ -49,10 +43,8 @@ const RecetasProvider = ({children}) => {
         }
         obtenerRecipes()
         console.log("TERMINA useeffectRECETASPROVIDER")
-    },[auth])//esta atento a los cambios que se realizen en el state auth
+    },[auth])//esta atento a los cambios que se realizen en el state auth que se actualiza porq esta en otro useEffect global
     
-    
-
     //fn setea alerta con timer
     const mostrarAlerta = alerta => {
         setAlerta(alerta)
@@ -90,6 +82,8 @@ const RecetasProvider = ({children}) => {
             
             const {data} = await clienteAxiosRecipes.post(("/recipes"),{title,ingredients,preparation,image},config)
             console.log(data)
+            //con la nueva receta creada la agregamos a nuestro state recetas
+            setRecetas([...recetas, data])
 
             mostrarAlerta({
             msg: 'Receta creada correctamente',
@@ -111,8 +105,12 @@ const RecetasProvider = ({children}) => {
 
     }
     
+    const obtenerRecipe = async id =>{
+        console.log(id)
+    }
+
     return(
-        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta}}>
+        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerRecipe}}>
             {children}
         </RecetasContext.Provider>
     )

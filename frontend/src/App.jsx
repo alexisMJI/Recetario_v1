@@ -8,6 +8,7 @@ import OlvidePassword from './paginas/OlvidePassword'
 import NuevoPassword from './paginas/NuevoPassword'
 import {ConfirmarCuenta} from './paginas/ConfirmarCuenta'
 import NuevaReceta from './paginas/NuevaReceta'
+import Receta from './paginas/Receta'
 
 import { RecetasProvider } from './context/RecetasProvider'
 import {AuthProvider} from './context/AuthProvider'
@@ -26,16 +27,23 @@ function App() {
             <Routes>
 
               <Route path="/" element={<AuthLayout/>}>
+                
                 <Route index element={<Login/>}/>
                 <Route path="/registrar" element={<Registrar/>}/>
                 <Route path="/olvide-password" element={<OlvidePassword/>}/>
                 <Route path="/olvide-password/:token" element={<NuevoPassword/>}/>
                 <Route path="/confirmar/:id" element={<ConfirmarCuenta/>}/>
+              
               </Route>
 
               <Route path="/recetas" element={ <RutaProtegida/>}>
+                
                 <Route index element={<Recetas/>}/> 
+                {/* aca podriamos agregar nuestra pagina de usuariuo INFO IMPORTANTE seccion 34 video437 */}
                 <Route path="crear-receta" element={<NuevaReceta/>}/>
+                <Route path=":id" element={<Receta/>}/>
+                {/* aca no ponemos nada mas abajo porq es una ruta diunamica qcyo */}
+
               </Route>
 
                  
