@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const clienteAxiosRecipes = axios.create({
-    baseURL: "https://crudrecipes.herokuapp.com"
+    baseURL: "http://localhost:4000"
     //"https://crudrecipes.herokuapp.com"
+    //"https://recipesjwt.herokuapp.com"
     //"http://localhost:4000"
 })
 

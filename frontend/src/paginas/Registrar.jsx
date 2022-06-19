@@ -51,7 +51,7 @@ function Registrar() {
 
     // Peticion Crear el usuario en la API
     try{
-        const {data} = await clienteAxiosUsers.post(("/users"),
+        const {data} = await clienteAxiosUsers.post(("/user"),
         {name,lastname,email, password})
         
         console.log(data)

@@ -14,8 +14,9 @@ const RutaProtegida = () => {
     console.log(cargando)
     //si la flag es true 
     if(cargando) 
-      return "cargando..."
+      return "cargando...p"
     
+    console.log(cargando)
     
     return (
     <>

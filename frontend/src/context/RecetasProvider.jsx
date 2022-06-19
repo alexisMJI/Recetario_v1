@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from 'react'
 import Alerta from '../components/Alerta';
 import clienteAxiosRecipes from '../config/clienteAxiosRecipes'
 import {useNavigate} from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 
 const RecetasContext = createContext();
@@ -11,19 +12,46 @@ const RecetasProvider = ({children}) => {
     const [recetas, setRecetas]= useState([])
     const [alerta, setAlerta] = useState([])
     const navigate = useNavigate();
+    //Llamamos a nuestro hook useAuth para extraer los datos de nuestro context Auth(state global)
+    const {auth} = useAuth()
+    console.log("desde recetasprovider antes de effect",auth)
 
-    //Soliticamos las Recipes al Backend
-   /* 
-   useEffect(()=>{
+    //Soliticamos las Recipes del usuario logueado al Backend 
+    useEffect(()=>{
         const obtenerRecipes = async ()=>{
+            console.log("empuieza useeffectRECETASPROVIDER")
+           
             try {
+                const token = localStorage.getItem('token');
+                if(token == null || !token){
+                    //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
+                    
+                     return
+
+
+                }
                 
+                if(auth.id){
+                let userId = auth.id;
+                console.log("desde userid",userId)
+                const {data} = await clienteAxiosRecipes(("/recipes?user_id="+userId));
+                console.log("esto es de  obtener recipes")
+                console.log(data)
+                setRecetas(data)
+                return
+            }
+                return
+            
+
             } catch (error) {
                 console.log(error)
             }
         }
-    },[])
-    */
+        obtenerRecipes()
+        console.log("TERMINA useeffectRECETASPROVIDER")
+    },[auth])//esta atento a los cambios que se realizen en el state auth
+    
+    
 
     //fn setea alerta con timer
     const mostrarAlerta = alerta => {
@@ -39,26 +67,20 @@ const RecetasProvider = ({children}) => {
 
         //extraemos los datos que nos pasaron
         const {title,ingredients,preparation,image} = receta
-        console.log(title)
 
         const token = localStorage.getItem('token');
-            if(token == null) {
+        //validamos si existe o si esta vacio el token
+            if(token == null || !token) {
                mostrarAlerta({
                 msg: 'Error a la hora de crear receta',
                 error: true
                 });
                 //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
-                window.location.reload();
-                
+                window.location.reload();   
             }
 
         // Peticion Crear receta en la API
         try{
-            
-            console.log(token)
-            //(verificar que realiza?)
-            if(!token) return
-
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -66,7 +88,7 @@ const RecetasProvider = ({children}) => {
                 }
             }
             
-            const {data} = await clienteAxiosRecipes.post(("/recipes"),{title,ingredients,preparation,image})//,config
+            const {data} = await clienteAxiosRecipes.post(("/recipes"),{title,ingredients,preparation,image},config)
             console.log(data)
 
             mostrarAlerta({
