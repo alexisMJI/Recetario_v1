@@ -18,7 +18,7 @@ const RecetasProvider = ({children}) => {
 
     //Soliticamos las Recipes del usuario logueado al Backend 
     useEffect(()=>{
-        const obtenerRecipes = async ()=>{
+        const obtenerRecetas = async ()=>{
             console.log("empuieza useeffectRECETASPROVIDER")
             try {
                 const token = localStorage.getItem('token');
@@ -41,7 +41,7 @@ const RecetasProvider = ({children}) => {
                 console.log(error)
             }
         }
-        obtenerRecipes()
+        obtenerRecetas()
         console.log("TERMINA useeffectRECETASPROVIDER")
     },[auth])//esta atento a los cambios que se realizen en el state auth que se actualiza porq esta en otro useEffect global
     
@@ -105,12 +105,12 @@ const RecetasProvider = ({children}) => {
 
     }
     
-    const obtenerRecipe = async id =>{
+    const obtenerReceta = async id =>{
         console.log(id)
     }
 
     return(
-        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerRecipe}}>
+        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta}}>
             {children}
         </RecetasContext.Provider>
     )

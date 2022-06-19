@@ -6,10 +6,16 @@ import useRecetas from '../hooks/useRecetas'
 const Receta = () => {
     
     const params = useParams()
+    const {obtenerReceta} = useRecetas()
+    
+    /*  
     console.log(params)
-    const {obtenerRecipe} = useRecetas()
     obtenerRecipe(params.id)
+    */
 
+    useEffect(()=>{
+        obtenerReceta(params.id)
+    },[])
 
     return (
     <div>Receta</div>
