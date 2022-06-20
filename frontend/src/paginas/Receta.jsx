@@ -15,10 +15,9 @@ const Receta = () => {
     
     const {title,ingredients,preparation,image,user_id} = receta;
 
-
+    if(cargando==true) return 'cargando...'
     return (
-        cargando ?  'cargando...' :
-        (<div className='flex justify-between '>
+        <div className='flex justify-between '>
             <h1 className='font-black text-4xl'>{title}</h1>
             
             <div className='flex items-center gap-2 text-gray-600 hover:text-black'>
@@ -30,7 +29,7 @@ const Receta = () => {
                 </Link>
             </div>
             
-        </div>)
+        </div>
   )
 }
 
