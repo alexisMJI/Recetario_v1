@@ -10,7 +10,9 @@ const RecetasContext = createContext();
 const RecetasProvider = ({children}) => {
     //definimos states y fn
     const [recetas, setRecetas]= useState([])
-    const [alerta, setAlerta] = useState([])
+    const [receta, setReceta]= useState({})
+    const [alerta, setAlerta] = useState({})
+    const [cargando, setCargando] = useState(true)
     const navigate = useNavigate();
     //Llamamos a nuestro hook useAuth para extraer los datos de nuestro context Auth(state global)
     const {auth} = useAuth()
@@ -105,12 +107,23 @@ const RecetasProvider = ({children}) => {
 
     }
     
+    //consulta la receta por id al Backend Recipes
     const obtenerReceta = async id =>{
-        console.log(id)
+        setCargando(true)
+        try {
+            const {data} = await clienteAxiosRecipes(`/recipes/${id}`)
+            //guardamos la receta en el state receta
+            setReceta(data)
+        } catch (error) {
+            console.log(error)
+        }
+         
+        setCargando(false)
+        
     }
 
     return(
-        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta}}>
+        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta,receta,cargando}}>
             {children}
         </RecetasContext.Provider>
     )
