@@ -56,7 +56,7 @@ const RecetasProvider = ({children}) => {
         }, 5000);
     }
 
-    // fn envia receta al Backend Recipes
+    // fn envia peticion al Backend Recipes
     const submitReceta = async receta => {
         const token = localStorage.getItem('token');
         //validamos si existe o si esta vacio el token
@@ -128,7 +128,7 @@ const RecetasProvider = ({children}) => {
             console.log(data)
             //sincronizamos las recetas en el state
             //Entiendo que recorre el state recetas y sobreescribe aquella que tenga el mismo id que la receta que estamos editando
-            const recetasActualizadas = recetas.map( recetaState => recetaState.id === data.id ? data : recetaState)
+            const recetasActualizadas = recetas.map( recetaState => recetaState.id === data.id ? data : recetaState)//sacar id por _id
 
             setRecetas(recetasActualizadas) 
 
@@ -170,8 +170,58 @@ const RecetasProvider = ({children}) => {
         
     }
 
+    const eliminarReceta = async id =>{
+        const token = localStorage.getItem('token');
+        //validamos si existe o si esta vacio el token
+            if(token == null || !token) {
+               mostrarAlerta({
+                msg: 'Error a la hora de crear receta',
+                error: true
+                });
+                //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
+                window.location.reload();   
+            }
+        
+        const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+        try{
+                
+                const {data} = await clienteAxiosRecipes.delete(("/recipes/"+id),config)
+                console.log(data)
+
+                //sincronizamos las recetas en el state
+                //entioendo que recorre la lista de recetas y deja las que son distintas q el id a borrar.
+                const recetasActualizadas = recetas.filter( recetaState => recetaState.id != id)//recordar sacar el PRIMER id por _id
+                console.log(recetasActualizadas)
+                setRecetas(recetasActualizadas) 
+    
+        
+                mostrarAlerta({
+                    msg: 'Receta Eliminada correctamente',
+                    error: false
+                })
+                //si se creo limpiamos alerta y redirigimos a la pag de recetas
+                setTimeout(()=>{
+                    setAlerta({})
+                    navigate("/recetas")
+                },3000)
+            
+        } catch (error){
+                console.log(error)
+                mostrarAlerta({
+                    msg: 'Error a la hora de eliminar receta',
+                    error: true
+                })
+        }
+    }
+
     return(
-        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta,receta,cargando}}>
+        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta,receta,cargando,eliminarReceta}}>
             {children}
         </RecetasContext.Provider>
     )
