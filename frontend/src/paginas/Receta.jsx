@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import useRecetas from '../hooks/useRecetas'
 
 const Receta = () => {
-    //nos permite leer los parametros de la url en este caso el id de la receta
+    //permite leer los parametros de la url en este caso el id de la receta
     const params = useParams()
     const {obtenerReceta, receta, cargando} = useRecetas()
 
@@ -19,6 +19,7 @@ const Receta = () => {
     return (
         <div className='flex justify-between '>
             <h1 className='font-black text-4xl'>{title}</h1>
+            {/**Aca pondria mas datos de la receta sin la posibilidad de poder modificarlos */}
             
             <div className='flex items-center gap-2 text-gray-600 hover:text-black'>
                 <Link to={`/recetas/editar/${params.id}`}>

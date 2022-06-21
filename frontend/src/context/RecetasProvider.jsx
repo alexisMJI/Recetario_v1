@@ -58,10 +58,6 @@ const RecetasProvider = ({children}) => {
 
     // fn envia receta al Backend Recipes
     const submitReceta = async receta => {
-
-        //extraemos los datos que nos pasaron
-        const {title,ingredients,preparation,image} = receta
-
         const token = localStorage.getItem('token');
         //validamos si existe o si esta vacio el token
             if(token == null || !token) {
@@ -72,24 +68,39 @@ const RecetasProvider = ({children}) => {
                 //reload asi se activa el useEffect que se encarga de validar el token en el context AuthProvider y setear Auth con los datos del user
                 window.location.reload();   
             }
-
-        // Peticion Crear receta en la API
-        try{
-            const config = {
+        
+        const config = {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 }
             }
-            
-            const {data} = await clienteAxiosRecipes.post(("/recipes"),{title,ingredients,preparation,image},config)
+        
+        if(receta.id){
+            await editarReceta(receta,config)
+        } else {
+            await nuevaReceta(receta,config)
+        }
+
+        return
+
+    }
+
+    const nuevaReceta = async (receta,config) =>{
+        console.log('nueva receta')
+        //extraemos los datos que nos pasaron
+        const {title,ingredients,preparation,image} = receta
+        // Peticion Crear receta en la API
+        try{
+            const user_id = 45;//cuando conectemos con cris volamos esto... ya q lo hace el cn el jwt
+            const {data} = await clienteAxiosRecipes.post(("/recipes"),{title,ingredients,preparation,image,user_id},config)
             console.log(data)
             //con la nueva receta creada la agregamos a nuestro state recetas
             setRecetas([...recetas, data])
 
             mostrarAlerta({
-            msg: 'Receta creada correctamente',
-            error: false
+                msg: 'Receta creada correctamente',
+                error: false
             })
             //si se creo limpiamos alerta y redirigimos a la pag de recetas
             setTimeout(()=>{
@@ -97,14 +108,51 @@ const RecetasProvider = ({children}) => {
                 navigate("/recetas")
             },3000)
         
-    }catch (error){
-        console.log(error)
-        mostrarAlerta({
-          msg: 'Error a la hora de crear receta',
-          error: true
-        })
+        } catch (error){
+            console.log(error)
+            mostrarAlerta({
+                msg: 'Error a la hora de crear receta',
+                error: true
+            })
+        }
     }
 
+    const editarReceta = async (receta,config) =>{
+        console.log('editar receta')
+        //extraemos los datos que nos pasaron
+        const {title,ingredients,preparation,image,id} = receta
+        // Peticion Crear receta en la API
+        try{
+            const user_id = 45;//cuando conectemos con cris volamos esto... ya q lo hace el cn el jwt
+            const {data} = await clienteAxiosRecipes.put(("/recipes/"+id),{title,ingredients,preparation,image,user_id},config)
+            console.log(data)
+            //sincronizamos las recetas en el state
+            //Entiendo que recorre el state recetas y sobreescribe aquella que tenga el mismo id que la receta que estamos editando
+            const recetasActualizadas = recetas.map( recetaState => recetaState.id === data.id ? data : recetaState)
+
+            setRecetas(recetasActualizadas) 
+
+
+
+
+            mostrarAlerta({
+                msg: 'Receta editada correctamente',
+                error: false
+            })
+            //si se creo limpiamos alerta y redirigimos a la pag de recetas
+            setTimeout(()=>{
+                setAlerta({})
+                navigate("/recetas")
+            },3000)
+        
+        } catch (error){
+            console.log(error)
+            mostrarAlerta({
+                msg: 'Error a la hora de editar receta',
+                error: true
+            })
+        }
+        
     }
     
     //consulta la receta por id al Backend Recipes
