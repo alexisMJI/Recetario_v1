@@ -12,7 +12,7 @@ const Header = () => {
           
         <div className='flex items-center gap-4'>
           <Link to="/recetas" className='font-bold uppercase'>Recetas</Link>
-          <p to="/recetas" className='font-bold uppercase'>Mi cuenta</p>
+          <p  className='font-bold uppercase'>Mi cuenta</p>
           <button type='button' className='text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold'>Cerrar Sesion</button>
         </div>
       </div>

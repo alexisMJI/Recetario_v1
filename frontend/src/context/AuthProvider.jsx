@@ -15,6 +15,8 @@ const AuthProvider = ({children}) => {
     const navigate =useNavigate();
     //state para almacenar el user
     const [auth,setAuth] = useState({})
+    //state para a;macernar el nombre del user
+    const [user_name, SetUser_name] = useState('')
     //flag utilizada para el Componente RutaProtegida
     const [cargando, setCargando] = useState(true)
 
@@ -61,9 +63,46 @@ const AuthProvider = ({children}) => {
         verificarUsuario()
     },[])
     
+    //Get user por id -> devuelve el nombre del user
+    const obtenerNombreUser = async (id) =>{
+        const token = localStorage.getItem('token')
+  
+            if(!token) {
+                
+                return
+            }
+  
+            const config = {
+                headers: {
+                "Conten-Type": "application/json",
+                Authorization : `Bearer ${token}`
+                }
+            }
+  
+  
+            try {
+                const {data} = await clienteAxiosUsers('/user/'+id,config)
+                //seteamos Auth con los valores del usuario si el back valida el token
+                console.log("obtuvimos el nombre del user",data)
+                SetUser_name(data)
+                
+                
+                //podriamos usar el flag cargando..
+                
+               
+            } catch (error) {
+                //limpiamos Auth por si quedaron datos de un usuario que se le vencio el token
+                console.log(error);
+                
+                
+                
+            }
+    }
+
+
     //declaramos que datos queremos pasar con context en este caso auth y setAuth
     return(
-        <AuthContext.Provider value={{auth,setAuth,cargando}}>
+        <AuthContext.Provider value={{auth,setAuth,cargando,obtenerNombreUser,user_name}}>
              {children}
         </AuthContext.Provider>
     )

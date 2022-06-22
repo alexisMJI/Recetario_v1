@@ -2,19 +2,22 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import useRecetas from '../hooks/useRecetas'
+import useAuth from '../hooks/useAuth';
 
 const Receta = () => {
     //permite leer los parametros de la url en este caso el id de la receta
     const params = useParams()
+    const {obtenerNombreUser,user_name} = useAuth()
     const {obtenerReceta, receta, cargando} = useRecetas()
 
     useEffect(()=>{
         //le pasamos a la funcion el id de la receta asi nos devuelve los datos de la receta
         obtenerReceta(params.id)
+        
     },[])
     
     const {title,ingredients,preparation,image,user_id} = receta;
-
+    obtenerNombreUser(user_id)
     if(cargando==true) return 'cargando...'
     return (
         <>
@@ -38,9 +41,14 @@ const Receta = () => {
                     <label className='text-gray-700 uppercase font-bold text-sm' htmlFor='preparation'>Preparacion</label>
                     <input id='preparation' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Preparacion de la Receta' value={preparation} disabled />
                     
+                    <label className='text-gray-700 uppercase font-bold text-sm' >Creador de la receta</label>
+                    <input id='nombreuserreceta' disabled type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' value={user_name}/>
+
                     {/*Si image esta cargado.. mostar.. */}
-                    {image &&<label className='text-gray-700 uppercase font-bold text-sm'>Imagen</label> }
+                    {image && <label className='text-gray-700 uppercase font-bold text-sm'>Imagen</label> }
                     {image && <img src={image} alt="" className='border  p-2 mt-2  rounded-md'/>}
+
+
                 </form>
             </div>
         </>
