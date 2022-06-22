@@ -16,7 +16,7 @@ const RecetasProvider = ({children}) => {
     const navigate = useNavigate();
     //Llamamos a nuestro hook useAuth para extraer los datos de nuestro context Auth(state global)
     const {auth} = useAuth()
-    console.log("desde recetasprovider antes de effect",auth)
+    
 
     //Soliticamos las Recipes del usuario logueado al Backend 
     useEffect(()=>{

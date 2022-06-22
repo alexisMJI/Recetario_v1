@@ -12,7 +12,7 @@ const Recetas = () => {
 
   return (
     <>
-      <h1 className=' text-4xl font-black '>Recetas</h1>
+      <h1 className=' text-4xl font-black'>Mis Recetas</h1>
       
       <div className='bg-white shadow mt-10 rounded-lg'>
         {recetas.length ? 

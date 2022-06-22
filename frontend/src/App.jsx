@@ -10,9 +10,11 @@ import {ConfirmarCuenta} from './paginas/ConfirmarCuenta'
 import NuevaReceta from './paginas/NuevaReceta'
 import Receta from './paginas/Receta'
 import EditarReceta from './paginas/EditarReceta'
+import MiCuenta from './paginas/MiCuenta'
 
 import { RecetasProvider } from './context/RecetasProvider'
 import {AuthProvider} from './context/AuthProvider'
+
 
 
 function App() {
@@ -41,12 +43,15 @@ function App() {
                 
                 <Route index element={<Recetas/>}/> 
                 {/* aca podriamos agregar nuestra pagina de usuariuo INFO IMPORTANTE seccion 34 video437 */}
+                <Route path="micuenta" element={<MiCuenta/>}/>
                 <Route path="crear-receta" element={<NuevaReceta/>}/>
                 <Route path=":id" element={<Receta/>}/>
                 <Route path="editar/:id" element={<EditarReceta/>}/>
                 {/* aca no ponemos nada mas abajo porq es una ruta diunamica qcyo */}
 
               </Route>
+
+              
 
                  
             </Routes>
