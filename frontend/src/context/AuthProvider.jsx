@@ -91,7 +91,7 @@ const AuthProvider = ({children}) => {
                 
                
             } catch (error) {
-                //limpiamos Auth por si quedaron datos de un usuario que se le vencio el token
+                
                 console.log(error);
                 
                 
@@ -99,10 +99,45 @@ const AuthProvider = ({children}) => {
             }
     }
 
+    const editarUser = async (user,pass) =>{
+        const token = localStorage.getItem('token')
+  
+        if(!token) {
+            
+            return
+        }
+
+        const config = {
+            headers: {
+            "Conten-Type": "application/json",
+            Authorization : `Bearer ${token}`
+            }
+        }
+
+         
+        const {name,username,email} = user;
+
+        try {
+            const {data} = await clienteAxiosUsers.patch('/me',{name,username,email,pass},config)
+            console.log("se modifico correctamente al user",data)
+            
+           
+        } catch (error) {
+            
+            console.log(error);
+            
+            
+            
+        }
+    }
+
+    const cerrarSesionAuth = () => {
+        setAuth({})
+    }
 
     //declaramos que datos queremos pasar con context en este caso auth y setAuth
     return(
-        <AuthContext.Provider value={{auth,setAuth,cargando,obtenerNombreUser,user_name}}>
+        <AuthContext.Provider value={{auth,setAuth,cargando,obtenerNombreUser,user_name,editarUser,cerrarSesionAuth}}>
              {children}
         </AuthContext.Provider>
     )

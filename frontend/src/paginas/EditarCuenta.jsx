@@ -9,9 +9,16 @@ import { useEffect } from 'react';
 
 
 const EditarCuenta = () => {
-    const {auth, cargando} = useAuth()
+  const [ name, setName] = useState('')
+  const [ lastname, setLastname] = useState('')
+  const [ email, setEmail] = useState('')
+  const [ password, setPassword] = useState('')
+
+
+
+    const {auth, cargando,editarUser} = useAuth()
     const {mostrarAlerta, alerta} = useRecetas();
-    const {name, lastname, email} = auth
+    //const {name, lastname, email} = auth
     
 
     const handleSubmit = async e =>{
@@ -26,6 +33,7 @@ const EditarCuenta = () => {
           })
           return
         }
+
     }
     
 
@@ -49,13 +57,13 @@ const EditarCuenta = () => {
       <div className="mt-10 flex justify-center">
           <form className='bg-white py-10 px-5 md: w-1/2 rounded-lg shadow-xl' onSubmit={handleSubmit}>
             <label className='text-gray-700 uppercase font-bold text-sm' htmlFor='nombre'>Nombre</label>
-            <input id='title' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Titulo de la Receta' value={auth.name} disabled />
+            <input id='title' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Titulo de la Receta' value={auth.name}  onChange={(e)=> setTitle(e.target.value)}/>
             
             <label className='text-gray-700 uppercase font-bold text-sm' htmlFor='ingredients'>Apellido</label>
-            <input id='ingredients' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Ingredientes de la Receta' value={auth.lastname} disabled />
+            <input id='ingredients' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Ingredientes de la Receta' value={auth.lastname}  onChange={(e)=> setTitle(e.target.value)}/>
 
             <label className='text-gray-700 uppercase font-bold text-sm' htmlFor='preparation'>Email</label>
-            <input id='preparation' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Preparacion de la Receta' value={auth.email} disabled />
+            <input id='preparation' type="text" className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md' placeholder='Preparacion de la Receta' value={auth.email}  onChange={(e)=> setTitle(e.target.value)}/>
             
         
             <input type='submit' value='Modificar' className='mb-5 bg-sky-700 w-full py-3 mt-10 font-bold text-white uppercase rounded hover:cursor-pointer hover:bg-sky-800 hover:transition-colors' />

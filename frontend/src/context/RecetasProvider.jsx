@@ -219,9 +219,15 @@ const RecetasProvider = ({children}) => {
                 })
         }
     }
+    const cerrarSesionRecetas= () =>{
+        setReceta({})
+        setRecetas([])
+        setAlerta({})
+    }
+
 
     return(
-        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta,receta,cargando,eliminarReceta}}>
+        <RecetasContext.Provider value={{recetas, mostrarAlerta, alerta, submitReceta, obtenerReceta,receta,cargando,eliminarReceta,cerrarSesionRecetas}}>
             {children}
         </RecetasContext.Provider>
     )
