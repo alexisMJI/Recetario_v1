@@ -31,7 +31,7 @@ const RecetasProvider = ({children}) => {
                 if(auth.id){
                     const userId = auth.id;
                     console.log("DESDE userid",userId)
-                    const {data} = await clienteAxiosRecipes(("/recipes?user_id="+userId));
+                    const {data} = await clienteAxiosRecipes(("/userid/"+userId));//"/recipes?user_id=" | "/recipes/user_id/"
                     console.log("Obtener recipes", data)
                     setRecetas(data)
                     return
@@ -123,12 +123,12 @@ const RecetasProvider = ({children}) => {
         const {title,ingredients,preparation,image,id} = receta
         // Peticion Crear receta en la API
         try{
-            const user_id = 45;//cuando conectemos con cris volamos esto... ya q lo hace el cn el jwt
-            const {data} = await clienteAxiosRecipes.put(("/recipes/"+id),{title,ingredients,preparation,image,user_id},config)
+            //const user_id = 45;//cuando conectemos con cris volamos esto... ya q lo hace el cn el jwt
+            const {data} = await clienteAxiosRecipes.put(("/recipes/"+id),{title,ingredients,preparation,image},config)//back fake , ,user_id}
             console.log(data)
             //sincronizamos las recetas en el state
             //Entiendo que recorre el state recetas y sobreescribe aquella que tenga el mismo id que la receta que estamos editando
-            const recetasActualizadas = recetas.map( recetaState => recetaState.id === data.id ? data : recetaState)//sacar id por _id
+            const recetasActualizadas = recetas.map( recetaState => recetaState._id === data._id ? data : recetaState)//sacar id por _id
 
             setRecetas(recetasActualizadas) 
 
@@ -196,7 +196,7 @@ const RecetasProvider = ({children}) => {
 
                 //sincronizamos las recetas en el state
                 //entioendo que recorre la lista de recetas y deja las que son distintas q el id a borrar.
-                const recetasActualizadas = recetas.filter( recetaState => recetaState.id != id)//recordar sacar el PRIMER id por _id
+                const recetasActualizadas = recetas.filter( recetaState => recetaState._id != id)//recordar sacar el PRIMER id por _id
                 console.log(recetasActualizadas)
                 setRecetas(recetasActualizadas) 
     

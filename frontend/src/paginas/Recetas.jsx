@@ -17,7 +17,7 @@ const Recetas = () => {
       <div className='bg-white shadow mt-10 rounded-lg'>
         {recetas.length ? 
           recetas.map(receta =>(
-            <PreviewReceta key={receta.id} receta={receta} />//recordar que es receta._id en back cris
+            <PreviewReceta key={receta._id} receta={receta} />//recordar que es receta._id en back cris
           
           ))
         : <p className=' text-center text-gray-600 uppercase p-5'>No hay proyectos</p>}

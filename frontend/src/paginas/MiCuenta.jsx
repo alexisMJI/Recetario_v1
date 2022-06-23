@@ -4,11 +4,11 @@ import VerCuenta from '../components/VerCuenta'
 const MiCuenta = () => {
     return (
         <>
-          <h1 className=' text-4xl font-black '>Mi Cuenta</h1>
-    
-          <div className="mt-10 flex justify-center">
+          <h1 className=' text-4xl font-black'>Ver cuenta</h1>
+      
+          
             <VerCuenta/>
-          </div>
+          
         </>
       )
 }

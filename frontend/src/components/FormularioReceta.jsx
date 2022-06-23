@@ -37,7 +37,7 @@ const FormularioReceta = () => {
       setIngredients(receta.ingredients)
       setPreparation(receta.preparation)
       setImage(receta.image)
-      setId(receta.id)// cambiar al back de cris con _id
+      setId(receta._id)// cambiar al back de cris con _id
       obtenerNombreUser(receta.user_id)
 
     } 
